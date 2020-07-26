@@ -5,7 +5,18 @@ Relay state operator, completely written in Python.
 
 RPi.Relay can change relay state, via Raspberry Pi GPIO.
 
-To connect to Raspberry Pi plug into GPIO PIN 11 (default) and POWER PIN. Install and execute raspi-relay and it should work. Alternatively you can user different PIN and execute raspi-relay with parameter: ``raspi-relay --pin pin_number``.
+To connect to Raspberry Pi plug into `GPIO PIN 22 <https://pinout.xyz/pinout/pin15_gpio22#>`_ (Physical pin 15) and
+POWER PIN. Install and execute raspi-relay and it should work. Alternatively you can user different PIN and execute
+raspi-relay with parameter: ``raspi-relay --pin pin_number``.
+
+.. image:: doc/RPi.Relay.png
+
+RPi.Relay supports number of parameters and also configuration file. For more details see ``raspi-relay --help`` or
+sample config.
+
+Sensor is based on `RPi.Sensor <https://github.com/ricco386/RPi.Sensor/>`_ library, which make base for implementing
+different types of sensors in Python.
+
 
 Pre-Installation requirements
 -----------------------------
@@ -13,26 +24,30 @@ Pre-Installation requirements
 - Update system and install required dependencies::
 
     sudo apt-get update
+
+- Update system and install required dependencies::
+
     sudo apt-get install build-essential python3-dev python3-pip
+
 
 Installation
 ------------
 
-- Clone repository::
-
-    git clone git@github.com:ricco386/RPi.git
-
-- Go to RPi.Relay directory::
-
-    cd RPi.Relay
-
 - Install the latest released version using pip::
 
-    python3 -m pip install --upgrade .
+    pip install https://github.com/ricco386/RPi.Relay/zipball/master
+
+- Alternatively install latest released version from pypi::
+
+    pip install --upgrade RPi.Relay
+
+
+Integration as a systemd service
+--------------------------------
 
 - Make sure all dependencies (listed below) are installed (done automatically when installing via pip)
 - The ``raspi-relay`` command should be installed somewhere in your ``PATH`` (done automatically when installing via pip), make sure `raspi-relay.service` has corect path in `ExecStart` set to `raspi-relay` executable.
-- Systemd scripts are available: https://github.com/ricco386/RPi/tree/master/RPi.Relay/init.d to install them you will need root privileges, so we execute them as sudo::
+- Systemd scripts are available: https://github.com/ricco386/RPi.Relay/tree/master/init.d to install them you will need root privileges, so we execute them as sudo::
 
     sudo cp init.d/raspi-relay.conf /etc/tmpfiles.d/
     sudo cp init.d/raspi-relay.service /etc/systemd/system/
@@ -44,7 +59,8 @@ Systemd scripts should be run under **default Raspberry Pi user** (pi), scripts 
 
 **Dependencies:**
 
-- `RPi.Sensor <https://pypi.python.org/pypi/RPi.Sensor>`_ (0.5.2+)
+- `RPi.Sensor <https://pypi.python.org/pypi/RPi.Sensor>`_ (0.5.3+)
+
 
 Usage
 -----
@@ -59,4 +75,4 @@ You have to create a `.sensor.cfg` file and place into `/home/pi/.sensor.cfg` yo
 License
 -------
 
-For more information see the `LICENSE <https://github.com/ricco386/RPi/blob/master/RPi.Relay/LICENSE>`_ file.
+For more information see the `LICENSE <https://github.com/ricco386/RPi.Relay/blob/master/LICENSE>`_ file.

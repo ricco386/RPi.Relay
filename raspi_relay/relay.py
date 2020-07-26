@@ -9,7 +9,7 @@ from raspi_sensor.sensor import Sensor
 class Relay(Sensor):
 
     NAME = 'Relay'
-    PIN = 11
+    PIN = 22
 
     sensor_state = 0
     relay_state = 2  # Set unknown value, due to initial reading
